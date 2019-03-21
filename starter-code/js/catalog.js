@@ -12,7 +12,10 @@ function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   var selectElement = document.getElementById('items');
   for (var i in Product.allProducts) {
-
+    var productList = document.createElement('option');
+    productList.textContent = Product.allProducts[i].name;
+    productList.value = Product.allProducts[i].name;
+    selectElement.appendChild(productList);
   }
 
 }
@@ -23,17 +26,22 @@ function populateForm() {
 function handleSubmit(event) {
 
   // TODO: Prevent the page from reloading
-
+  event.preventDefault();
   // Do all the things ...
   addSelectedItemToCart();
   cart.saveToLocalStorage();
   updateCounter();
   updateCartPreview();
+  // console.log(event.target);
 
 }
 
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
+  var product = event.target.items.value;
+  var quantity = event.target.quantity.value;
+  cart.addItem(product, quantity);
+
   // TODO: suss out the item picked from the select list
   // TODO: get the quantity
   // TODO: using those, add one item to the Cart
